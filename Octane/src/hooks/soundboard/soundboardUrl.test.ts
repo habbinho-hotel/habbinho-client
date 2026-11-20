@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { resolveSoundboardUrl } from './soundboardUrl';
+import { resolveSoundboardSoundUrl, resolveSoundboardUrl } from './soundboardUrl';
+import { normalizeSoundboardManifest } from './soundboardManifest';
 
 const mocks = vi.hoisted(() => ({ configuration: new Map<string, string>() }));
 
@@ -19,5 +20,11 @@ describe('resolveSoundboardUrl', () => {
     it('leaves absolute and root-relative URLs unchanged', () => {
         expect(resolveSoundboardUrl('https://cdn.example.test/click.ogg')).toBe('https://cdn.example.test/click.ogg');
         expect(resolveSoundboardUrl('/sounds/click.ogg')).toBe('/sounds/click.ogg');
+    });
+
+    it('resolves manifest files to the bundled soundboard directory by default', () => {
+        const manifest = normalizeSoundboardManifest({ soundboard: [{ classname: 'bong', file: 'bong.ogg' }] });
+
+        expect(resolveSoundboardSoundUrl({ classname: 'bong' }, manifest)).toBe('sounds/soundboard/bong.ogg');
     });
 });

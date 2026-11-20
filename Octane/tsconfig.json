@@ -15,10 +15,6 @@
         "noFallthroughCasesInSwitch": false,
         "module": "ES2022",
         "moduleResolution": "bundler",
-        "types": [
-            "node",
-            "vite/client"
-        ],
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,

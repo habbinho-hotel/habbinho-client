@@ -1,7 +1,7 @@
 import { GetConfigurationValue } from '../../api';
 import { SoundboardManifest } from './soundboardManifest';
 
-const DEFAULT_ASSET_TEMPLATE = 'nitro-assets/sounds/soundboard/%file%';
+const DEFAULT_ASSET_TEMPLATE = 'sounds/soundboard/%file%';
 
 const applyBase = (url: string): string => {
     if (!url) return '';

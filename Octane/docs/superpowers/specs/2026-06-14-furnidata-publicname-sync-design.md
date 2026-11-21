@@ -1,8 +1,10 @@
 # Sync `public_name` from furnidata (Furni Editor) — design
 
+> **Design history.** The manual sync action is implemented. See the [current Furnidata contract](../../../../docs/furnidata.md) and [editor hook](../../../src/hooks/furni-editor/useFurniEditor.ts).
+
 **Date:** 2026-06-14
 **Repo:** `ui` (Nitro-V3 React client) — client-only
-**Status:** approved (brainstorming)
+**Original status:** approved (brainstorming)
 
 ## Problem
 

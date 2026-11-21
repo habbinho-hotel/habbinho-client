@@ -1,5 +1,7 @@
 # Navigator Modernization — P1: Hook Split + UI Store
 
+> **Design history.** The split landed with `useSharedHook` in place of `useBetween`. See the [UI architecture](../../ARCHITECTURE.md#state-and-events) and [Navigator hooks](../../../src/hooks/navigator/).
+
 **Branch:** `feat/navigator-modernization` (forked from `origin/Dev` @ `d5d5ca59`)
 **Date:** 2026-05-26
 **Scope:** P1 of a 4-phase Navigator modernization sweep (P1 → P2 → P3 → P4).

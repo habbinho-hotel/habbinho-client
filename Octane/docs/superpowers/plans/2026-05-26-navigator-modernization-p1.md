@@ -1,5 +1,7 @@
 # Navigator Modernization P1 Implementation Plan
 
+> **Historical plan.** The file paths and Git commands below reflect the original upstream workflow. See the [UI architecture](../../ARCHITECTURE.md#state-and-events) and [current Navigator hooks](../../../src/hooks/navigator/).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Split the 492-line `useNavigator` god-hook into a `wired-tools`-style store + three filters, extract door lifecycle to `useDoorState`, hoist NavigatorView's 9 local useState into a Zustand `navigatorUiStore`, migrate all 13 consumers, delete the shim — zero user-visible change.

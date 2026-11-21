@@ -1,5 +1,7 @@
 # Furni editor — furnidata editing UI + typography refresh (Client/Renderer) Implementation Plan
 
+> **Historical plan.** See the [current Furnidata contract](../../../../docs/furnidata.md) and [editor hook](../../../src/hooks/furni-editor/useFurniEditor.ts).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: superpowers:subagent-driven-development. Steps use checkbox (`- [ ]`).
 
 **Goal:** Expose the server-side furnidata name/description editing (Plan A, already on Arcturus `main`) in the React furni editor: make Classname/Public Name read-only, add an editable **Furnidata** section (Display Name + Description) with diff-confirm + revert, search by furnidata name, and refresh the editor's typography/colors to the theme tokens.

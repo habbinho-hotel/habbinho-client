@@ -1,5 +1,7 @@
 # Messenger Phase 4 — Typing Indicator Implementation Plan
 
+> **Historical plan.** See the [current Messenger hook](../../../src/hooks/friends/useMessenger.ts) and [typing tests](../../../src/hooks/friends/useMessenger.typing.test.tsx) for the implementation.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Show "X sta scrivendo…" in a 1:1 conversation while the friend is typing, WhatsApp-style.

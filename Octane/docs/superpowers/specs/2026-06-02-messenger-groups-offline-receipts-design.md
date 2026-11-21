@@ -1,7 +1,9 @@
 # Messenger upgrade — Friend groups, offline messages, read receipts, typing
 
+> **Design history.** The implementation evolved to include a request for offline messages and a persisted read cursor based on message IDs. See the [current client hook](../../../src/hooks/friends/useMessenger.ts) and the [Messenger E2E scenario](../../../../Octane-Renderer/packages/communication/src/e2e/messenger.e2e.test.ts).
+
 **Date:** 2026-06-02
-**Status:** Approved design (brainstorming) — pending implementation plan
+**Original status:** Approved design (brainstorming) — pending implementation plan
 **Scope:** Cross-component (Nitro-V3 client + Nitro_Render_V3 renderer + Arcturus emulator + DB). CMS untouched.
 
 ## Goal

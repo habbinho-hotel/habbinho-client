@@ -1,5 +1,7 @@
 # Messenger Phase 2 — Offline Messages Implementation Plan
 
+> **Historical plan.** The current protocol has a dedicated [request for offline messages](../../../../Octane-Renderer/packages/communication/src/messages/outgoing/friendlist/RequestOfflineMessagesComposer.ts). See the [current friends hook](../../../src/hooks/friends/useFriends.ts).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Messages sent to an offline friend are stored and delivered on the recipient's next login, tagged "sent while offline".

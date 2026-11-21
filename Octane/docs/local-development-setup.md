@@ -1,5 +1,8 @@
 # Setup locale con `yarn start`
 
+> Configurazione upstream con collegamento diretto a Polaris. Per il checkout
+> Habbinho, segui il [README del progetto](../../README.md#desenvolvimento).
+
 Questa guida serve per avviare Octane in locale con Vite, usando:
 
 - UI locale su `http://localhost:5173`;

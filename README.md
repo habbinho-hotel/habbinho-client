@@ -2,6 +2,8 @@
 
 O client web reúne `Octane/` (interface React) e `Octane-Renderer/` (SDK e protocolo). Para subir o hotel, comece pelo [hotel-stack](https://github.com/habbinho-hotel/hotel-stack). O stack monta o pack de gamedata em runtime. O `gamedata/` histórico deste repositório fica fora da imagem.
 
+O [índice da documentação](docs/README.md) reúne arquitetura, contratos, testes E2E e decisões de design. As instruções para agentes ficam em [AGENTS.md](AGENTS.md).
+
 ## Desenvolvimento
 
 Use Node 22.12+ e Corepack. O Yarn 4 vem fixado no `package.json` de cada pasta. Instale as dependências a partir da raiz do repositório.

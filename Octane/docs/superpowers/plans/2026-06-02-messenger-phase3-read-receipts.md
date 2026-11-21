@@ -1,5 +1,7 @@
 # Messenger Phase 3 — Read Receipts (✓ / ✓✓) Implementation Plan
 
+> **Historical plan.** The persisted history uses a read cursor based on message IDs. See the [Messenger hook](../../../src/hooks/friends/useMessenger.ts) and [E2E scenario](../../../../Octane-Renderer/packages/communication/src/e2e/messenger.e2e.test.ts).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** WhatsApp-style 2-state read receipts on your own sent messages — `✓` sent, `✓✓` read — driven by a live relay (no persistence).

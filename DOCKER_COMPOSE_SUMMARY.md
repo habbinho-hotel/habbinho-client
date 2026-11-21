@@ -1,5 +1,8 @@
 # Hotel Polaris + Octane: Docker Setup (Minimum Essential)
 
+> Historical setup for the older integrated Compose project. For Habbinho,
+> start with the [current README](README.md) and [hotel-stack](https://github.com/habbinho-hotel/hotel-stack).
+
 ## 📁 Recommended Folder Structure
 
 ```

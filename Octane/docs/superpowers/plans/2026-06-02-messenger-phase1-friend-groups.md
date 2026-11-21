@@ -1,5 +1,7 @@
 # Messenger Phase 1 — Friend Groups Implementation Plan
 
+> **Historical plan.** See the [current friends hook](../../../src/hooks/friends/useFriends.ts) for friend groups and the [Habbinho setup](../../../../README.md#desenvolvimento) for validation.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add full custom friend groups (create / rename / delete / assign) to the existing React friends list, with an Online/Offline-primary view plus a per-group chip filter.

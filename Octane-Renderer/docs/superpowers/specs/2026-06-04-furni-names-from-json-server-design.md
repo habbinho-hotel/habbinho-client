@@ -1,7 +1,9 @@
 # Furni names from JSON (server-authoritative) — Design
 
+> **Design history.** The reload packet shipped as `10047`. The [current Furnidata contract](../../../../docs/furnidata.md) records its modes and the current UI refresh event.
+
 - **Date:** 2026-06-04
-- **Status:** Draft for review
+- **Original status:** Draft for review
 - **Scope:** Cross-repo — Arcturus (emulator), Nitro_Render_V3 (renderer), Nitro-V3 (client)
 - **Out of scope:** furni-editor feature/packets, NitroV3-Housekeeping (CMS), server-side multi-language, description rendering in the infostand.
 

@@ -1,5 +1,7 @@
 # Navigator Modernization — P2: TanStack Query for Search
 
+> **Superseded design.** Navigator search returned to event subscriptions after this experiment. The [current hook](../../../src/hooks/navigator/useNavigatorSearch.ts) matches replies by tab and filter.
+
 **Branch**: `feat/navigator-p2-query` (forked from `feat/navigator-modernization` @ `1148c0a6`)
 **Date**: 2026-05-27
 **Depends on**: P1 (hook split) — merged or pending merge

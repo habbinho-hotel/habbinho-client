@@ -35,11 +35,10 @@ the UI and the renderer.
 
 ## React 19 Modernization Phase 2 (2026-05-12)
 
-Long-running work on the `feat/react19-modernization` branch — see
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the design rationale.
+Long-running work on the `feat/react19-modernization` branch. See the
+[current architecture guide](docs/ARCHITECTURE.md) for the resulting patterns.
 Companion changes shipped on `feat/react19-event-bus` in
-[`octane-renderer`](../octane-renderer) — see that repo's CLAUDE.md
-for the renderer-side notes.
+[Octane-Renderer](../Octane-Renderer).
 
 ### Pattern #1: `useNitroEventState` + companions
 - New `useNitroEventReducer` / `useMessageEventReducer` for the case

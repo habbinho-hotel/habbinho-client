@@ -36,7 +36,7 @@ const localizeWithFallback = (key: string, fallback: string) => {
 
 interface EarningCategory {
     // Wire categoryKey — MUST match the emulator contract
-    // (emulatore/docs/earnings-packet-contract.md).
+    // (docs/earnings-packet-contract.md in habbinho-emulator).
     key: string;
     // Standard gamedata localization key (ExternalTexts). 'label' is only the
     // fallback shown when the key is missing in the active texts.

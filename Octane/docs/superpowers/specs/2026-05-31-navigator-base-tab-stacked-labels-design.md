@@ -1,5 +1,7 @@
 # Navigator — Room Settings "Base" tab: stacked-label layout
 
+> **Design history.** The stacked layout landed. See the [current view](../../../src/components/navigator/views/room-settings/NavigatorRoomSettingsBasicTabView.tsx) and [its tests](../../../src/components/navigator/views/room-settings/NavigatorRoomSettingsBasicTabView.test.tsx) for controls and behavior.
+
 **Date:** 2026-05-31
 **Component:** Nitro-V3 client
 **File:** `src/components/navigator/views/room-settings/NavigatorRoomSettingsBasicTabView.tsx`

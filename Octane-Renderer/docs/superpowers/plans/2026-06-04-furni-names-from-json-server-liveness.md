@@ -1,5 +1,7 @@
 # Furni Names from JSON — Liveness (Piece 2) Implementation Plan
 
+> **Historical plan.** See the [current Furnidata contract](../../../../docs/furnidata.md) for packet `10047` and the paths in this checkout.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** When the furnidata file changes, push only the changed names to every connected client so catalog/inventory/infostand update live, without a giant re-download and without a reconnect.

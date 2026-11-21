@@ -373,7 +373,9 @@ echo "Next steps:"
 echo "  1. Open http://localhost:8080 no navegador"
 echo "  2. Crie uma conta na tela do Octane"
 echo "  3. Dê rank 7 ao usuário via SQL:"
-echo "     docker compose exec db sh -c 'mariadb -uroot -p\"${DB_ROOT_PASSWORD}\" \"${DB_NAME}\"'"
+cat <<'SQL_COMMAND'
+     docker compose exec db sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"'
+SQL_COMMAND
 echo "        # dentro do SQL: UPDATE users SET \`rank\` = 7 WHERE username = 'SeuNome';"
 echo ""
 echo "Full assets (recommended):"

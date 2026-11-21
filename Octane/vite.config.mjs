@@ -24,11 +24,17 @@ const rendererRoot = [currentRendererRoot, previousRendererRoot, legacyRendererR
 const octaneFilesRoot = resolve(import.meta.dirname, '..', 'Nitro-Files');
 const octaneAssetsRoot = resolve(octaneFilesRoot, 'nitro-assets');
 const swfRoot = resolve(octaneFilesRoot, 'swf');
+const gamedataRoot = process.env.OCTANE_GAMEDATA_DIR;
 
 const octaneAssetsServer = () => ({
     name: 'nitro-assets-serve',
     configureServer(server)
     {
+        if(gamedataRoot)
+        {
+            server.middlewares.use('/gamedata', sirv(resolve(gamedataRoot), { dev: true, etag: true, maxAge: 0 }));
+        }
+
         if(existsSync(octaneAssetsRoot))
         {
             server.middlewares.use('/nitro-assets', sirv(octaneAssetsRoot, { dev: true, etag: true, maxAge: 0 }));

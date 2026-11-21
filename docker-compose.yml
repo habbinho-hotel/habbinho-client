@@ -54,9 +54,7 @@ services:
 
   # Cliente Octane (build estático) + gamedata servidos pelo nginx.
   client:
-    build:
-      context: .
-      dockerfile: docker/client/Dockerfile
+    build: .
     restart: unless-stopped
     environment:
       PUBLIC_URL: http://${HOTEL_HOST:-localhost}:${HTTP_PORT:-8080}

@@ -1,78 +1,49 @@
-# Hotel em Docker (Polaris + Octane): só o essencial
+# Habbinho Client
 
-Três containers: **db** (MariaDB 11.4), **polaris** (emulador, Java 25) e **client** (Octane buildado, servido pelo nginx).
-Fica de fora tudo o que o All-in-1 Manager instala além disso: Traefik, NGINX no host, PHP, CMS, Gitea, Fail2Ban etc.
+O client web reúne `Octane/` (interface React) e `Octane-Renderer/` (SDK e protocolo). Para subir o hotel, comece pelo [hotel-stack](https://github.com/habbinho-hotel/hotel-stack). O stack monta o pack de gamedata em runtime. O `gamedata/` histórico deste repositório fica fora da imagem.
 
-## Subir
+## Desenvolvimento
 
-```bash
-./setup.sh                  # clona os 3 repositórios, cria o .env e a pasta gamedata/
-docker compose build        # compila o JAR e o cliente (a primeira vez demora)
-docker compose up -d
-docker compose logs -f polaris   # espere "Polaris has successfully loaded."
+Use Node 22.12+ e Corepack. O Yarn 4 vem fixado no `package.json` de cada pasta. Instale as dependências a partir da raiz do repositório.
+
+```sh
+corepack enable
+(cd Octane-Renderer && yarn install --immutable)
+(cd Octane && yarn install --immutable)
 ```
 
-Abra `http://localhost:8080`. Na primeira subida o Polaris cria o schema sozinho (migrations automáticas), então não precisa importar SQL.
+Com o Polaris acessível pelo edge do stack em `localhost:8080`, renderize as configurações locais e inicie o Vite.
 
-## Assets (obrigatório para o cliente carregar)
+```sh
+OCTANE_CONF_DIR="$PWD/Octane/public/configuration" \
+  PUBLIC_URL=http://localhost:5173 \
+  PUBLIC_API_URL=http://localhost:5173 \
+  PUBLIC_WS_URL=ws://localhost:8080/ws \
+  sh docker/client/entrypoint.sh --config-only
 
-O cliente busca tudo em `http://localhost:8080/gamedata/`, que é a pasta `./gamedata`. O `setup.sh` já coloca o pouco que vem no repositório do Polaris. O resto você gera/baixa com o [All-in-1 Converter](https://github.com/duckietm/all-in-1-converter) (ou **Assets → Habbo assets** no All-in-1 Manager) e copia para cá:
-
-| Pasta em `gamedata/` | Conteúdo |
-|---|---|
-| `config/` | FurnitureData.json, ProductData.json, FigureData.json, FigureMap.json, EffectMap.json, HabboAvatarActions.json, ExternalTexts.json, UITexts.jsonc |
-| `furniture/`, `clothes/`, `effect/`, `pets/`, `room/` | bundles `.hab` / `.nitro` |
-| `icons/`, `sounds/`, `c_images/` | ícones, sons, emblemas e imagens de catálogo |
-
-## Fonte opcional: HabboAssets (API pública)
-
-O `setup.sh` pode mesclar itens do espelho público [HabboAssets](https://www.habboassets.com/) sem necessidade de token:
-
-| O que adiciona | Endpoint | Onde cai em `gamedata/` |
-|---|---|---|
-| Badges (todos do hotel) | `/api/v2/badges/zip` | `c_images/` (não sobrescreve existentes) |
-| Sons (MP3) | `/api/v2/sounds` | `sounds/` (não sobrescreve existentes) |
-| Móveis (.nitro → `.hab`) | `/api/v2/furniture` + `/furniture/zip` | `furniture/nitro/` (exige token) |
-
-Ative com `HABBO_ASSETS=1` (e opcionalmente `HABBO_HOTEL_ID=1`) no `.env`, depois rode `./setup.sh` novamente. Demanda rede, então fica desligado por padrão para manter o setup rápido.
-
-Móveis exigem um token de API da HabboAssets — coloque em `HABBO_API_TOKEN` no `.env` (grátis, criado no site). Móveis já vêm do repositório `sphynxkitten/nitro-assets` integrado pelo `setup.sh`; esta etapa adiciona os do espelho da HabboAssets por cima.
-
-## Primeiro usuário e admin
-
-Registre uma conta na tela do Octane e dê rank 7 a ela:
-
-```bash
-docker compose exec db sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"'
-# dentro do cliente SQL:
-#   UPDATE users SET `rank` = 7 WHERE username = 'SeuNome';
+cd Octane
+OCTANE_GAMEDATA_DIR=/caminho/do/pack-revisado \
+  AUTH_PROXY_TARGET=http://127.0.0.1:8080 \
+  yarn start --host 127.0.0.1
 ```
 
-## Dia a dia
+O Vite carrega o código do renderer irmão, serve o pack fora da árvore observada e encaminha `/api` para o stack. O navegador abre o WebSocket pela rota `/ws` do edge. O gerador preserva arquivos locais existentes. Se mudar de porta ou host, ajuste as URLs nos arquivos já gerados.
 
-```bash
-docker compose ps                      # estado e healthchecks
-docker compose logs -f polaris
-docker compose restart polaris
-docker compose down                    # para tudo (dados ficam nos volumes)
-docker compose down -v                 # apaga também banco e segredos
+Para validar uma mudança, rode `yarn compile:fast` e `yarn test` em `Octane-Renderer/`, e `yarn typecheck`, `yarn test` e `yarn build` em `Octane/`. A CI na raiz executa esse fluxo. O [guia Docker legado](docs/legacy-docker.md) fica como referência durante a migração.
+
+## Acompanhar upstream
+
+Em checkout raso, rode `git fetch --unshallow origin` antes de sincronizar. Puxe cada subtree separadamente numa branch de integração. Resolva conflitos e abra o PR após testar.
+
+```sh
+git subtree pull --prefix=Octane https://github.com/duckietm/Octane.git main
+git subtree pull --prefix=Octane-Renderer https://github.com/duckietm/Octane-Renderer.git main
 ```
 
-Backup do banco (o backup automático do Polaris está desligado porque a imagem não tem `mariadb-dump`):
+## Imagem
 
-```bash
-docker compose exec db sh -c 'mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" "$MARIADB_DATABASE"' > backup.sql
-```
+Da raiz, `docker build -t habbinho/client:local .` produz a imagem nginx na porta 80. Configure `PUBLIC_URL`, `PUBLIC_API_URL` e `PUBLIC_WS_URL` em runtime. Monte o pack em `/usr/share/nginx/gamedata`. Use a URL base da API sem acrescentar `/api`.
 
-Atualizar para versões novas: `git -C polaris-emulator pull`, `git -C Octane pull`, `git -C Octane-Renderer pull`, depois `docker compose build && docker compose up -d`. As migrations rodam sozinhas.
+O workflow `Client` pode publicar no GHCR em `linux/amd64` e `linux/arm64`. Revise as licenças dos assets embarcados e a disponibilidade do código-fonte correspondente antes de despachar manualmente uma tag `image-vX.Y.Z` com `publish_image=true`. Promova o digest do índice multiarch em um PR no stack.
 
-## Acessar de outra máquina da rede
-
-No `.env`: `HOTEL_HOST=<IP da máquina>` e `BIND_ADDR=0.0.0.0`; depois `docker compose up -d`. A configuração do cliente é regerada ao recriar o container.
-
-## O que ficou de fora de propósito
-
-- **Câmera e emblemas de grupo gerados pelo emulador**: precisam de chaves em `emulator_settings` e de uma pasta compartilhada de escrita entre emulador e nginx.
-- **HTTPS / domínio / Cloudflare**: no instalador isso é o Traefik. Para produção, ponha um proxy reverso na frente da porta do `client` e do `polaris` (`/ws` e `/api`) e ajuste `ws.whitelist` no banco.
-- **CMS** (AtomCMS, EpicNext): a tela de registro/login do próprio Octane já basta para testar.
-- A porta do jogo `3000` (TCP legado) não é publicada; o Octane usa só o WebSocket em `2096`.
+Octane e Octane-Renderer têm seus [termos GPLv3](Octane/LICENSE) nas duas árvores. Assets de terceiros podem ter condições próprias. Preserve a procedência e os avisos aplicáveis.

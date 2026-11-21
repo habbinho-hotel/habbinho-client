@@ -33,6 +33,16 @@ O Vite carrega o código do renderer irmão, serve o pack fora da árvore observ
 
 Para validar uma mudança, rode `yarn compile:fast` e `yarn test` em `Octane-Renderer/`, e `yarn typecheck`, `yarn test` e `yarn build` em `Octane/`. A CI na raiz executa esse fluxo. O [guia Docker legado](docs/legacy-docker.md) fica como referência durante a migração.
 
+### Depurar com o Playwright MCP
+
+Abra `habbinho-client` como projeto confiável no Codex e inicie um novo chat. Use `/mcp` para conferir se o servidor `playwright` está disponível. Depois de iniciar o Vite, peça ao agente para abrir `http://localhost:5173` e inspecionar o console, as requisições ou a interface. O Chromium roda sem janela em uma sessão isolada. Para investigar a renderização do hotel, o agente também pode capturar a tela e interagir com o canvas por coordenadas.
+
+Se precisar instalar o Chromium manualmente, execute na raiz de `habbinho-client`.
+
+```sh
+bash .codex/playwright-mcp.sh install-browser chromium
+```
+
 ## Acompanhar upstream
 
 Em checkout raso, rode `git fetch --unshallow origin` antes de sincronizar. Puxe cada subtree separadamente numa branch de integração. Resolva conflitos e abra o PR após testar.

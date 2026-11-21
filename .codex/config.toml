@@ -1,0 +1,8 @@
+[mcp_servers.playwright]
+command = "bash"
+args = ["-c", '''
+set -e
+cd "$(git rev-parse --show-toplevel)"
+exec bash .codex/playwright-mcp.sh
+''']
+startup_timeout_sec = 60
